@@ -3,15 +3,17 @@
 Sandbox environment designed to safely work with AI agents
 
 ## Features:
-- Network isolation - primary `workspace` container is in private network with no internet access, all internet traffic goes through `proxy` squid proxy container with domain allowlisting functinality that is outside of AI agent reach
-- Filesystem isolation via containerization - Only one `./projects` directory is mounted from host filesystem, for other projects to be worked on. This meta scafollding project is not mounted inside a container.
+- Network isolation - Primary `workspace` container is located in private network with no internet access, all internet traffic goes through Squid Proxy with domain allowlisting functinality that is configured outside of AI agent reach. Proxy is placed within two networks, private and public, enabling indirect internet access for private `workspace` node. 
+- Filesystem isolation - `./projects` directory is mounted from a host filesystem into container, it's the only host directory that can be modified from both host and an agent.
 
 ## Quick Start
 
-1. Install requirements: docker, docker compose
-2. Set up environment variables `cp example.env .env` - fill missing values, e.g. `GEMINI_API_KEY`
-3. Scaffold infrastructure: `docker compose up -d`
-4. Start working within container: `docker compose exec workspace bash`
+1. Install requirements: 
+    - `docker`
+    - `docker compose`
+2. Set up environment variables `cp example.env .env` - fill missing environment variable values, e.g. `GEMINI_API_KEY`, key can be created here: [aistudio](https://aistudio.google.com/app/api-keys)
+3. Bootstrap infrastructure: `docker compose up -d`
+4. Open shell within workspace node: `docker compose exec workspace bash`
 
 ## Commands
 
@@ -39,7 +41,7 @@ By default requests are denied, unless present in `allowed-sites.txt`
 
 ### Allowlisting Domains
 
-1. Check the proxy logs if requests are blocked: `docker compose logs -f proxy`
-2. Add additional domains by extending `allowed-sites.txt`
+1. Watch proxy logs for allowed/denied traffic: `docker compose logs -f proxy`
+2. Additional domains can be added by extending `allowed-sites.txt`
 
 For example to allow package installation `apt install cowsay` - `.ports.ubuntu.com` could be added.
