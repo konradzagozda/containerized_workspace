@@ -6,7 +6,7 @@ ENV NODE_VERSION=v24.14.1
 ENV PANDOC_VERSION=3.9.0.2
 
 RUN apt-get update && \
-    apt-get install -y man-db manpages-posix wget curl xz-utils tree && \
+    apt-get install -y man-db manpages-posix wget curl xz-utils tree iputils-ping iptables iproute2 net-tools nmap && \
     yes | unminimize && \
     wget https://github.com/jgm/pandoc/releases/download/$PANDOC_VERSION/pandoc-$PANDOC_VERSION-1-arm64.deb && \
     dpkg -i pandoc-$PANDOC_VERSION-1-arm64.deb && \

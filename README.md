@@ -4,4 +4,4 @@
 
 - `docker compose build`
 - `docker compose up -d`
-- `docker compose exec projects bash`
+- `docker compose exec workspace bash`
