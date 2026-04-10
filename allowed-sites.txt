@@ -1,0 +1,5 @@
+.google.com
+.github.com
+.registry.npmjs.org
+.play.googleapis.com
+.generativelanguage.googleapis.com
